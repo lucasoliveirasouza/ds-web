@@ -5,8 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - DS.WEB</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/DS.WEB.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/solid.min.css" />
+    <link rel="stylesheet" href="@Url.Content("~/css/principal.css")" asp-append-version="true"/>
+    <link rel="stylesheet" href="@Url.Content("~/css/grid.css")" asp-append-version="true"/>
+    <link rel="stylesheet" href="@Url.Content("~/css/datepicker-bs4.css")" asp-append-version="true"/>
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-masker@1.2.0/build/vanilla-masker.min.js"></script>
+    <script src="@Url.Content("~/js/datepicker-full.js")"></script>
+    <script src="@Url.Content("~/js/datepicker-pt-BR.js")"></script>
+    <script src="@Url.Content("~/js/functions.js")"></script>
 </head>
 <body>
     <header>
@@ -31,19 +38,13 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3 mt-5">
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - DS.WEB - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
-
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="@Url.Content("~/js/Grid.js")"></script>
+    <script src="@Url.Content("~/js/Modal.js")"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

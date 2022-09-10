@@ -1,0 +1,421 @@
+.grid-container {
+    display: block;
+    width: 100%;
+    border-radius: var(--radius);
+}
+
+.container.desabilitado {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.grid-container.dragging .em-grid-body {
+    pointer-events: all !important;
+}
+
+.grid-row {
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+    padding: 2px;
+    border-radius: var(--radius);
+    position: relative;
+}
+
+.grid-row:first-child {
+    margin-top: 0 !important;
+}
+
+.grid-header {
+    position: sticky;
+    z-index: 10;
+}
+
+.grid-header {
+    position: sticky;
+    z-index: 10;
+}
+
+@media only screen and (max-width: 1199px) {
+    .grid-header {
+        top: 0 !important;
+    }
+}
+
+.grid-header .grid-cell {
+    height: 45px !important;
+    color: var(--content);
+    overflow: hidden !important;
+    white-space: nowrap !important;
+}
+<script src="@Url.Content(" ~ /js/functions.js")" > </script >
+.grid-header .grid-cell i {
+    color: var(--content);
+}
+
+.grid-header.grid-header-scroll .grid-row {
+    padding-right: 20px !important;
+}
+
+.grid-header .grid-row {
+    background: var(--bs-body-color);
+    border: 1px solid var(--bs-body-color);
+}
+
+.grid-body {
+    width: 100%;
+}
+
+.grid-body-main {
+    margin-top: 10px;
+    overflow-y: auto;
+    overflow-x: auto;
+    width: 100%;
+}
+
+.grid-body:empty {
+    background: var(--secondary-70);
+    border-radius: var(--radius);
+}
+
+.grid-body:empty:before {
+    text-align: center;
+    color: var(--dark);
+    opacity: 0.7;
+    line-height: 48px;
+    display: block;
+}
+
+.grid-body:not(.grid-loading):empty:before {
+    content: "Não há nada para mostrar aqui";
+}
+
+.grid-body.grid-loading:empty:before {
+    content: "Carregando...";
+}
+
+.grid-body .grid-cell {
+    border: 1px solid transparent;
+}
+
+.grid-body .grid-cell[contenteditable] {
+    background: var(--content) !important;
+    border-radius: var(--radius);
+    border: 1px solid var(--dark-50);
+    height: 37px;
+    padding-top: 7px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.grid-body .grid-cell[disabled] {
+    background-color: var(--dark-20) !important;
+    border: 1px solid var(--dark) !important;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    height: 37px;
+    padding-top: 7px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.grid-body .grid-cell[contenteditable]:focus,
+.grid-body .grid-cell[contenteditable]:hover {
+    border-color: var(--primary) !important;
+    color: var(--primary) !important;
+}
+
+.grid-container:not(.dragging) .grid-body .grid-row:not(.grid-selected-row):not(.grid-deleting-row):not(.grid-editing-row):hover {
+    background-color: var(--primary-10);
+    cursor: pointer;
+    border: 1px solid var(--primary) !important;
+}
+
+.grid-container:not(.dragging) .grid-body .grid-row:not(.grid-selected-row):not(.grid-deleting-row):not(.grid-editing-row):hover *:not(.btn):not([contenteditable]) {
+    color: var(--primary);
+}
+
+.grid-body .grid-row.grid-editing-row *:not(.btn) {
+    color: var(--success-dark);
+}
+
+.grid-body .grid-row.grid-deleting-row *:not(.btn) {
+    color: var(--danger);
+}
+
+.grid-body .grid-row:not(.grid-selected-row):not(.grid-deleting-row):not(.grid-editing-row):nth-child(2n + 1) {
+    border: 1px solid var(--secondary-50);
+}
+
+.grid-body .grid-row:not(.grid-selected-row):not(.grid-deleting-row):not(.grid-editing-row):nth-child(2n) {
+    background: var(--secondary-50);
+    border: 1px solid var(--secondary-50);
+}
+
+.grid-body .grid-row.danger:not(.grid-deleting-row):not(.grid-editing-row):not(:hover) {
+    background-color: var(--danger-10) !important;
+    border: 1px solid var(--danger) !important;
+}
+
+.grid-body .grid-row.danger:not(.grid-deleting-row):not(.grid-editing-row):not(:hover) *:not(.btn) {
+    color: var(--danger);
+}
+
+.grid-body .grid-row.warning:not(.grid-deleting-row):not(.grid-editing-row):not(:hover) {
+    background-color: var(--warning-10) !important;
+    border: 1px solid var(--warning) !important;
+}
+
+.grid-body .grid-row.warning:not(.grid-deleting-row):not(.grid-editing-row):not(:hover) *:not(.btn) {
+    color: var(--warning);
+}
+
+.grid-body .grid-row.success:not(.grid-deleting-row):not(.grid-editing-row):not(:hover) {
+    background-color: var(--success-10) !important;
+    border: 1px solid var(--success) !important;
+}
+
+.grid-body .grid-row.success:not(.grid-deleting-row):not(.grid-editing-row):not(:hover) *:not(.btn) {
+    color: var(--success);
+}
+
+.grid-body .grid-row.info:not(.grid-deleting-row):not(.grid-editing-row):not(:hover) {
+    background-color: var(--info-10) !important;
+    border: 1px solid var(--info) !important;
+}
+
+.grid-body .grid-row.info:not(.grid-deleting-row):not(.grid-editing-row):not(:hover) *:not(.btn) {
+    color: var(--info);
+}
+
+.grid-body .grid-row.dark:not(.grid-deleting-row):not(.grid-editing-row):not(:hover) {
+    background-color: var(--dark-20) !important;
+    border: 1px solid var(--dark) !important;
+}
+
+.grid-body .grid-row.dark:not(.grid-deleting-row):not(.grid-editing-row):not(:hover) *:not(.btn) {
+    color: var(--dark);
+}
+
+.grid-body .grid-row.grid-editing-row {
+    background: var(--success-20) !important;
+    border: 1px solid var(--success) !important;
+}
+
+.grid-body .grid-row.grid-deleting-row {
+    background: var(--danger-20) !important;
+    border: 1px solid var(--danger) !important;
+}
+
+.grid-dragging-container {
+    padding-left: 25px;
+}
+
+.grid-body .grid-row.grid-dragging {
+    box-shadow: 0px 10px 25px -10px var(--success-20) !important;
+    pointer-events: none;
+    position: fixed;
+    z-index: 20;
+}
+
+.grid-drop-region {
+    pointer-events: none;
+}
+
+.grid-cell {
+    min-height: 32px;
+    flex-basis: 0;
+    flex-grow: 1;
+    overflow: hidden;
+    border-radius: var(--radius);
+    margin: 0 1px;
+}
+
+.grid-cell.grid-cell-disabled {
+    pointer-events: none !important;
+}
+
+.grid-cell i.fa-square,
+.grid-cell i.fa-check-square {
+    font-size: 1.2rem !important;
+}
+
+.grid-cell.grid-cell-checkbox,
+.grid-cell.grid-cell-checkbox {
+    cursor: pointer !important;
+}
+
+.grid-cell.grid-cell-checkbox:not(.grid-cell-disabled):hover i.fa-square,
+.grid-cell.grid-cell-checkbox i.fa-check-square {
+    color: var(--primary);
+    font-weight: 600 !important;
+}
+
+.grid-cell:not(.grid-cell-word-wrap) {
+    white-space: nowrap !important;
+    padding-left: .5rem !important;
+    padding-right: .5rem !important;
+    overflow: hidden !important;
+}
+
+.grid-cell:not(.grid-cell-center):not(.flex-column):not(.grid-action) {
+    justify-content: flex-start !important;
+    align-items: center !important;
+}
+
+.grid-cell.grid-cell-center:not(.flex-column):not(.grid-action) {
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.grid-cell.flex-column:not(.grid-cell-center):not(.grid-action) {
+    justify-content: center !important;
+    align-items: flex-start !important;
+}
+
+.grid-cell.flex-column.grid-cell-center:not(.grid-action) {
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.grid-cell.grid-action {
+    justify-content: flex-end !important;
+    align-items: center !important;
+}
+
+.grid-cell:first-child:not(.grid-action) {
+    padding-left: 0.5rem;
+}
+
+.grid-cell:last-child:not(.em-grid-action) {
+    padding-right: 0.5rem;
+}
+
+.grid-cell img {
+    margin: 0.5rem 0px;
+    border-radius: 100%;
+}
+
+.grid-cell img:not([src]) {
+    visibility: hidden !important;
+}
+
+.grid-action {
+    flex-grow: 1;
+    flex-shrink: 1;
+    text-align: right;
+}
+
+.grid-action button {
+    width: 38px;
+}
+
+.grid-selected-row:not(.grid-dragging) {
+    background: var(--primary-10);
+    border: 1px solid var(--primary);
+}
+
+.grid-selected-row:not(.grid-dragging) .grid-cell,
+.grid-selected-row:not(.grid-dragging) .grid-cell * {
+    color: var(--primary);
+}
+
+.grid-select-box {
+    flex: 0 0 30px !important;
+    display: flex;
+    cursor: pointer;
+}
+
+.grid-cell-drag {
+    flex: 0 0 25px !important;
+    display: flex;
+}
+
+.grid-container:not(.dragging) .grid-body .grid-cell-drag:not(:active) {
+    cursor: grab;
+}
+
+.grid-cell.grid-action-row,
+.grid-cell.grid-action {
+    flex-basis: 110px;
+    flex-grow: 0;
+}
+
+@media only screen and (max-width: 1199px) {
+    .grid-cell.grid-action-row,
+    .grid-cell.grid-action {
+        flex-basis: 50px !important;
+        flex-direction: column !important;
+        justify-content: space-around !important;
+    }
+
+    .grid-buttons {
+        padding-left: 0px !important;
+    }
+}
+
+.form-group.pesquisa-grid {
+    transition: none !important;
+}
+
+.form-group.pesquisa-grid .form-control {
+    padding-left: 1.5rem !important;
+}
+
+/* Highlight */
+.grid-body .grid-cell.highlight.danger {
+    background-color: var(--danger-10) !important;
+    border: 1px solid var(--danger) !important;
+}
+
+.grid-body .grid-cell.highlight.danger,
+.grid-body .grid-cell.highlight.danger *:not(.btn) {
+    color: var(--danger) !important;
+}
+
+.grid-body .grid-cell.highlight.warning {
+    background-color: var(--warning-10) !important;
+    border: 1px solid var(--warning) !important;
+}
+
+.grid-body .grid-cell.highlight.warning,
+.grid-body .grid-cell.highlight.warning *:not(.btn) {
+    color: var(--warning) !important;
+}
+
+.grid-body .grid-cell.highlight.success {
+    background-color: var(--success-10) !important;
+    border: 1px solid var(--success) !important;
+}
+
+    .grid-body .grid-cell.highlight.success,
+    .grid-body .grid-cell.highlight.success *:not(.btn) {
+        color: var(--success) !important;
+    }
+
+.grid-body .grid-cell.highlight.info {
+    background-color: var(--info-10) !important;
+    border: 1px solid var(--info) !important;
+}
+
+.grid-body .grid-cell.highlight.info,
+.grid-body .grid-cell.highlight.info *:not(.btn) {
+    color: var(--info) !important;
+}
+
+grid-body .grid-cell.highlight.dark,
+grid-cell.grid-cell-disabled {
+    background-color: var(--dark-20) !important;
+    border: 1px solid var(--dark) !important;
+}
+
+.grid-body grid-cell.highlight.dark,
+.grid-body grid-cell.highlight.dark *:not(.btn),
+.grid-cell.grid-cell-disabled {
+    color: var(--dark) !important;
+}
+
+.pesquisaStyle {
+    width: 84% !important;
+    margin-right: auto !important;
+}
