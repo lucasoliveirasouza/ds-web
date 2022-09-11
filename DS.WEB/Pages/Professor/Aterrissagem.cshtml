@@ -1,0 +1,47 @@
+﻿@page
+@model DS.WEB.Pages.Professor.AterrissagemProfessorModel
+@{
+    Layout = "_LayoutAterrissagem";
+    ViewData["tituloFuncao"] = "Professores";
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <vc:grid options="@(Html.GridOptions(m => m.Professores)
+                                 .AddColumn(c => c.Bound(m => m.Email))
+                                 .AddColumn(c => c.Bound(m => m.Nome))
+                                 .AddAction(a => a.Remover())
+                                 .AddAction(a => a.Editar()))"></vc:grid>
+
+    </div>
+</div>
+
+<script defer>
+    EventDomContentLoaded(async () => {
+        await pesquiseProfessores();
+
+        const botaoCadastrar = document.getElementById('cadastrar');
+        botaoCadastrar.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            window.location.href = '/Professor/Cadastrar';
+        })
+    })
+
+    async function pesquiseProfessores() {
+        debugger;
+        const optionsFetch = {
+            url: `${APIHelper.LocalHost}/Professor`,
+            method: "GET"
+        }
+        const resposta = await postJSON(optionsFetch);
+        if (resposta.data) {
+            const professores = resposta.data.map(professor => {
+                return {
+                    Nome: professor.nome,
+                    Email: professor.email
+                }
+            });
+            Grid_Professores.addRange(professores);
+        }
+    }
+</script>

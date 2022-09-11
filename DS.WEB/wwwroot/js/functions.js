@@ -34,7 +34,7 @@ async function postJSON(optionsFetch) {
                 'Content-Type': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
                 'Access-Control-Allow-Origin': '*',
-                'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxZmQ4N2E5Yi1iNDY2LTQ4NWMtYjg5Ny1jYzJiNmJiODZlMzQiLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE2NjI5MDI3MjUsImV4cCI6MTY2MjkwNjMyNSwiaWF0IjoxNjYyOTAyNzI1fQ.hWou6RQ1nINjv3eBcbJ5u_gFmEfUOe8Wq3176RKKojU'
+                'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3YzI2MTJhNi1kZDQ5LTQ4ZWMtOGUzNi0yZWNlYjQwY2I3ZjMiLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE2NjI5MDMzNDksImV4cCI6MTY2MjkwNjk0OSwiaWF0IjoxNjYyOTAzMzQ5fQ.lJjYAFx8POzdz0NkEhjPmCSKIl5ty8JRpHNYD7tLgRs'
             }
         }
         :
@@ -44,7 +44,7 @@ async function postJSON(optionsFetch) {
                 'Content-Type': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
                 'Access-Control-Allow-Origin': '*',
-                'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxZmQ4N2E5Yi1iNDY2LTQ4NWMtYjg5Ny1jYzJiNmJiODZlMzQiLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE2NjI4NjYyMjQsImV4cCI6MTY2Mjg2OTgyNCwiaWF0IjoxNjYyODY2MjI0fQ.RVB4eXg4AoTEBj7pNGM_cLaMIPBSNvbPzM7SEaic2rA'
+                'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3YzI2MTJhNi1kZDQ5LTQ4ZWMtOGUzNi0yZWNlYjQwY2I3ZjMiLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE2NjI5MDMzNDksImV4cCI6MTY2MjkwNjk0OSwiaWF0IjoxNjYyOTAzMzQ5fQ.lJjYAFx8POzdz0NkEhjPmCSKIl5ty8JRpHNYD7tLgRs'
             },
             redirect: 'follow',
             referrer: 'no-referrer',
