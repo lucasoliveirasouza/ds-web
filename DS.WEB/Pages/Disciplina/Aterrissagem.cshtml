@@ -8,6 +8,9 @@
     <div class="col-xl-12">
         <vc:grid options="@(Html.GridOptions(m => m.Disciplinas)
                                 .AddColumn(c => c.Bound(m => m.Nome))
+                                .AddColumn(c => c.Bound(m => m.CargaHoraria))
+                                .AddAction(a => a.Remover().AoClicar("aoRemoverDisciplina"))
+                                .AddAction(a => a.Editar().AoClicar("aoEditarDisciplina"))
                                 .AddAction(a => a.AdicionarAluno().AoClicar("adicionarAlunoDisciplina")))"></vc:grid>
     </div>
 </div>
@@ -33,14 +36,10 @@ async function pesquiseDisciplina() {
         const disciplinas = resposta.map(disciplina => {
             return {
                 Nome: disciplina.name,
-                Id: disciplina.id
+                CargaHoraria: disciplina.total_hours + " hrs"
             }
         });
             Grid_Disciplinas.addRange(disciplinas);
     }
-}
-
-function adicionarAlunoDisciplina(row) {
-    window.location.href = `/Disciplina/AdicionarAlunoDisciplina?id=${row.Id}&nome=${row.Nome}`
 }
 </script>

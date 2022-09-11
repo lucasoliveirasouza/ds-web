@@ -3,6 +3,7 @@
 @{
     Layout = "_LayoutCadastro";
     ViewData["tituloFuncao"] = "Cadastro de disciplina";
+    var idDisciplina = (string)ViewData["idDisciplina"];
 }
 
 <div class="row">
@@ -61,6 +62,7 @@
             }).render();
             
         });
+        verifiqueEdicao();
     });
 
 async function graveCadastroDisciplina(ev) {
@@ -76,13 +78,36 @@ async function graveCadastroDisciplina(ev) {
         }
         
     }
-    const resposta = await postJSON(optionsFetch);
-    if(resposta)
-    {
-        new Modal().sucesso('Disciplina cadastrada com sucesso.').depoisDeOcultar(() =>{
-            window.location.href = '/Disciplina/Aterrissagem';
-        }).render()
-    }
+   
+        if (idDisciplina) {
+            optionsFetch.method = "PUT"
+            optionsFetch.data.Id = idDisciplina;
+        }
+        const resposta = await postJSON(optionsFetch);
+        if (resposta && resposta.success) {
+            new Modal().sucesso(idDisciplina ? 'Disciplina editada com sucesso.' : 'Disciplina cadastrado com sucesso.').depoisDeOcultar(() => {
+                window.location.href = '/Disciplina/Aterrissagem';
+            }).render()
+        }
 }
+
+    let idDisciplina;
+    async function verifiqueEdicao() {
+        idDisciplina = '@Html.Raw(idDisciplina)';
+        if (idDisciplina) {
+            var url = new URL(`${APIHelper.LocalHost}/classes/id`)
+            url.searchParams.append("id", idDisciplina);
+            const options = {
+                url: url,
+                method: "GET"
+            }
+            const resposta = await postJSON(options);
+            if (resposta) {
+                Descricao.value = resposta.description;
+                
+            }
+            debugger;
+        }
+    }
 
 </script>
