@@ -74,9 +74,10 @@ async function graveCadastroDisciplina(ev) {
             teacher_id: Pesquisa_Professor.obtenhaSelecionado().Id,
             total_hours: parseInt(CargaHoraria.value)
         }
+        
     }
     const resposta = await postJSON(optionsFetch);
-    if(resposta && resposta.success)
+    if(resposta)
     {
         new Modal().sucesso('Disciplina cadastrada com sucesso.').depoisDeOcultar(() =>{
             window.location.href = '/Disciplina/Aterrissagem';

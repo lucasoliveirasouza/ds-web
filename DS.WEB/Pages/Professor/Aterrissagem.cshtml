@@ -10,8 +10,8 @@
         <vc:grid options="@(Html.GridOptions(m => m.Professores)
                                  .AddColumn(c => c.Bound(m => m.Email))
                                  .AddColumn(c => c.Bound(m => m.Nome))
-                                 .AddAction(a => a.Remover())
-                                 .AddAction(a => a.Editar()))"></vc:grid>
+                                 .AddAction(a => a.Remover().AoClicar("aoRemoverProfessor"))
+                                 .AddAction(a => a.Editar().AoClicar("aoEditarProfessor")))"></vc:grid>
 
     </div>
 </div>
@@ -37,10 +37,36 @@
             const professores = resposta.data.map(professor => {
                 return {
                     Nome: professor.nome,
-                    Email: professor.email
+                    Email: professor.email,
+                    Id: professor.id
                 }
             });
             Grid_Professores.addRange(professores);
+        }
+    }
+    function aoEditarProfessor(row) {
+        window.location.href = `/Professor/Cadastrar?id=${row.Id}`
+    }
+
+    function aoRemoverProfessor(row) {
+        new Modal().confirmacao("Tem certeza que deseja remover o professor selecionado ?", (ev) => {
+            ev.preventDefault();
+            confirmeRemocaoProfessor(row);
+        }).render();
+    }
+    async function confirmeRemocaoProfessor(row) {
+        debugger;
+        const optionsFetch = {
+            url: `${APIHelper.LocalHost}/Professor`,
+            data: {
+                Id: row.Id
+            },
+            method: "DELETE"
+        }
+        const resposta = await postJSON(optionsFetch);
+        if (resposta.data) {
+            new Modal().sucesso('Professor excluido com sucesso').render();
+            Grid_Professores.remove(row);
         }
     }
 </script>
