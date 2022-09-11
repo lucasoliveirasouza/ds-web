@@ -3,7 +3,7 @@
 @{
     Layout = "_LayoutCadastro";
     ViewData["tituloFuncao"] = "Cadastro de alunos";
-    var alunoEdicao = "";
+    var idAluno = (string)ViewData["idAluno"];
 }
 
 <div class="row">
@@ -36,10 +36,10 @@
         <div class="form-group" data="">
             <div class="input-group" data-target-input="nearest">
                 <input readonly type="text" maxlength="11" id="Endereco" name="Endereco" class="form-control" value="" autocomplete="off">
-                <div class="input-group-append" style="@(alunoEdicao == "''" ? "background: var(--success);" : "background: var(--warning);")">
-                    <button type="button" class="btn py-2 my-0 px-4 " title="@(alunoEdicao == "''" ? "Adicionar endereco" : "Editar endereco")" 
+                <div class="input-group-append" style="@(idAluno == "''" ? "background: var(--success);" : "background: var(--warning);")">
+                    <button type="button" class="btn py-2 my-0 px-4 " title="@(idAluno == "''" ? "Adicionar endereco" : "Editar endereco")" 
                         data-bs-toggle="tooltip" tabindex="-1" onclick="adicionarEndereco(event)">
-                        <i style="color: white;" class="@(alunoEdicao == "''" ? "fa fa-plus" : "fa fa-pencil")"></i>
+                        <i style="color: white;" class="@(idAluno == "''" ? "fa fa-plus" : "fa fa-pencil")"></i>
                     </button>
                 </div>
             </div>
@@ -92,11 +92,11 @@
         botaoGravar.addEventListener('click', graveCadastroAluno)
         botaoCancelar.addEventListener('click', (ev) => {
             ev.preventDefault();
-            new Modal().confirmacao("Tem certeza que deseja cancelar o cadastro?", () =>{
+            new Modal().confirmacao("Tem certeza que deseja cancelar o cadastro?", () => {
                 window.location.href = '/Aluno/Aterrissagem';
             }).render();
-            
         });
+        verifiqueEdicao();
     });
 
 async function graveCadastroAluno(ev) {
@@ -121,13 +121,40 @@ async function graveCadastroAluno(ev) {
             }
         }
     }
+    if (idAluno) {
+        optionsFetch.method = "PUT"
+        optionsFetch.data.Id = idAluno;
+    }
     const resposta = await postJSON(optionsFetch);
     if(resposta && resposta.success)
     {
-        new Modal().sucesso('Aluno cadastrado com sucesso.').depoisDeOcultar(() =>{
+        new Modal().sucesso(idAluno ? 'Aluno editado com sucesso.' : 'Aluno cadastrado com sucesso.').depoisDeOcultar(() =>{
             window.location.href = '/Aluno/Aterrissagem';
         }).render()
     }
 }
-
+let idAluno;
+async function verifiqueEdicao()
+{
+    idAluno = '@Html.Raw(idAluno)';
+    if (idAluno) {
+        var url = new URL(`${APIHelper.LocalHost}/Aluno/id`)
+        url.searchParams.append("id", idAluno);
+        const options = {
+            url: url,
+            method: "GET"
+        }
+        const resposta = await postJSON(options);
+        if (resposta && resposta.success) {
+            Matricula.value = resposta.data.matricula;
+            Nome.value = resposta.data.nome;
+            CPF.value = resposta.data.cpf;
+            DataNascimento.value = resposta.data.dataNascimento.convertaStrLocaleToDate().convertaDateToStrDiaMesAno();
+            Email.value = resposta.data.email;
+            Senha.disabled = true;
+            Matricula.disabled = true;
+        }
+        debugger;
+    }
+}
 </script>

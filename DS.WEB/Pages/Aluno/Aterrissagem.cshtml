@@ -10,8 +10,8 @@
         <vc:grid options="@(Html.GridOptions(m => m.Alunos)
                                  .AddColumn(c => c.Bound(m => m.Matricula).FlexBasis(200))
                                  .AddColumn(c => c.Bound(m => m.Nome))
-                                 .AddAction(a => a.Remover())
-                                 .AddAction(a => a.Editar()))"></vc:grid>
+                                 .AddAction(a => a.Remover().AoClicar("aoRemoverAluno"))
+                                 .AddAction(a => a.Editar().AoClicar("aoEditarAluno")))"></vc:grid>
 
     </div>
 </div>
@@ -38,10 +38,40 @@ async function pesquiseAlunos() {
         const alunos = resposta.data.map(aluno => {
             return {
                 Nome: aluno.nome,
-                Matricula: 1
+                Matricula: aluno.matricula,
+                Id: aluno.id
             }
         });
         Grid_Alunos.addRange(alunos);
+    }
+}
+
+function aoEditarAluno(row)
+{
+    window.location.href = `/Aluno/Cadastrar?id=${row.Id}`
+}
+
+function aoRemoverAluno(row) 
+{
+    new Modal().confirmacao("Tem certeza que deseja remover o aluno selecionado ?", (ev) => {
+        ev.preventDefault();
+        confirmeRemocaoAluno(row);
+    }).render();
+}
+async function confirmeRemocaoAluno(row) 
+{
+    debugger;
+    const optionsFetch = {
+        url: `${APIHelper.LocalHost}/Aluno`,
+        data: {
+            Id: row.Id
+        },
+        method: "DELETE"
+    }
+    const resposta = await postJSON(optionsFetch);
+    if (resposta.data) {
+        new Modal().sucesso('Aluno excluido com sucesso').render();
+        Grid_Alunos.remove(row);
     }
 }
 </script>

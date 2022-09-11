@@ -12,6 +12,7 @@
 class APIHelper {
     static LocalHost = "https://localhost:7187";
     static LocalHostDisciplina = "http://localhost:8085";
+    static ObjetoEmEdicao = {}
 }
 
 function inputHandler(masks, max, event) {
@@ -129,6 +130,14 @@ String.prototype.convertaStrLocaleToDate = function () {
     if (this.length <= 0) return;
     return new Date(this.split("/").reverse().join('.'));
 };
+
+Date.prototype.convertaDateToStrDiaMesAno = function () {
+    if (!this) return '';
+    dia = this.getDate().toString().padStart(2, '0');
+    mes = (this.getMonth() + 1).toString().padStart(2, '0');
+    ano = this.getFullYear();
+    return dia + '/' + mes + '/' + ano;
+}
 
 function obtenhaTemplate(idTemplate) {
     return document.importNode(document.querySelector(`#${idTemplate}`).content, true);
