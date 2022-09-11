@@ -108,18 +108,17 @@ async function graveCadastroDisciplina(ev) {
     async function verifiqueEdicao() {
         idDisciplina = '@Html.Raw(idDisciplina)';
         if (idDisciplina) {
-            var url = new URL(`${APIHelper.LocalHostDisciplina}/classes`)
-            url.searchParams.append("id", idDisciplina);
+            var url = new URL(`${APIHelper.LocalHostDisciplina}/classes/${idDisciplina}`)
             const options = {
                 url: url,
                 method: "GET"
             }
             const resposta = await postJSON(options);
             if (resposta) {
-                CargaHoraria.value = resposta[0].total_hours;
-                Nome.value =  resposta[0].name;
-                HorarioDisciplina.value = resposta[0].schedules;
-                Descricao.value = resposta[0].description;
+                CargaHoraria.value = resposta.total_hours;
+                Nome.value =  resposta.name;
+                HorarioDisciplina.value = resposta.schedules;
+                Descricao.value = resposta.description;
 
                 
             }

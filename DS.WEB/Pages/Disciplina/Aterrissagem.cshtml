@@ -8,6 +8,7 @@
     <div class="col-xl-12">
         <vc:grid options="@(Html.GridOptions(m => m.Disciplinas)
                                 .AddColumn(c => c.Bound(m => m.Nome))
+                                .AddColumn(c => c.Bound(m => m.Horario))
                                 .AddColumn(c => c.Bound(m => m.CargaHoraria))
                                 .AddAction(a => a.Remover().AoClicar("aoRemoverDisciplina"))
                                 .AddAction(a => a.Editar().AoClicar("aoEditarDisciplina"))
@@ -37,6 +38,7 @@ async function pesquiseDisciplina() {
             return {
                 Nome: disciplina.name,
                 Id: disciplina.id,
+                Horario: disciplina.schedules,
                 CargaHoraria: disciplina.total_hours + " hrs"
             }
         });
