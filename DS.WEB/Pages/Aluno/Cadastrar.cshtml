@@ -6,6 +6,8 @@
     var idAluno = (string)ViewData["idAluno"];
 }
 
+<partial name="Shared/Components/_ModalEndereco" model="new DS.WEB.Pages.Shared.Components._ModalEnderecoModel()" />
+
 <div class="row">
     <div class="col-xl-3">
         <label for="Matricula" class="d-flex form-label">Matrícula</label>
@@ -36,10 +38,10 @@
         <div class="form-group" data="">
             <div class="input-group" data-target-input="nearest">
                 <input readonly type="text" maxlength="11" id="Endereco" name="Endereco" class="form-control" value="" autocomplete="off">
-                <div class="input-group-append" style="@(idAluno == "''" ? "background: var(--success);" : "background: var(--warning);")">
-                    <button type="button" class="btn py-2 my-0 px-4 " title="@(idAluno == "''" ? "Adicionar endereco" : "Editar endereco")" 
+                <div class="input-group-append" style="@(string.IsNullOrEmpty(idAluno) ? "background: var(--success);" : "background: var(--warning);")">
+                    <button type="button" class="btn py-2 my-0 px-4 " title="@(string.IsNullOrEmpty(idAluno) ? "Adicionar endereco" : "Editar endereco")" 
                         data-bs-toggle="tooltip" tabindex="-1" onclick="adicionarEndereco(event)">
-                        <i style="color: white;" class="@(idAluno == "''" ? "fa fa-plus" : "fa fa-pencil")"></i>
+                        <i style="color: white;" class="@(string.IsNullOrEmpty(idAluno) ? "fa fa-plus" : "fa fa-pencil")"></i>
                     </button>
                 </div>
             </div>
@@ -110,15 +112,7 @@ async function graveCadastroAluno(ev) {
             DataNascimento: DataNascimento.value.convertaStrLocaleToDate(),
             Email: Email.value,
             Senha: Senha.value,
-            Endereco: {
-                Cidade:"Goiânia",
-                Numero: 2,
-                Bairro: 'Bairro',
-                CEP: '7400000',
-                Complemento: 'Complemento',
-                Estado: 1,
-                Logradouro: 'Logradouro'
-            }
+            Endereco: obtenhaEndereco()
         }
     }
     if (idAluno) {
@@ -146,6 +140,8 @@ async function verifiqueEdicao()
         }
         const resposta = await postJSON(options);
         if (resposta && resposta.success) {
+            preenchaEnderecoEdicao(resposta.data.endereco);
+
             Matricula.value = resposta.data.matricula;
             Nome.value = resposta.data.nome;
             CPF.value = resposta.data.cpf;
@@ -156,5 +152,11 @@ async function verifiqueEdicao()
         }
         debugger;
     }
+}
+
+function adicionarEndereco(ev){
+    ev.preventDefault();
+    ev.stopPropagation();
+    modalAdicionarEndereco.show();
 }
 </script>

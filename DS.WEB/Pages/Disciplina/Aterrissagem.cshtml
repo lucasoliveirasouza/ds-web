@@ -32,8 +32,7 @@ async function pesquiseDisciplina() {
     if (resposta) {
         const disciplinas = resposta.map(disciplina => {
             return {
-                    Nome: disciplina.name,
-                Matricula: 1
+                Nome: disciplina.name
             }
         });
             Grid_Disciplinas.addRange(disciplinas);

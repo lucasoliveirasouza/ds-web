@@ -1,0 +1,142 @@
+﻿@page
+@model DS.WEB.Pages.Shared.Components._ModalEnderecoModel
+@{
+}
+
+<template id="TemplateModalAdicionarEnderecoHeader">
+    <div class="flex-column flex-xl-row justify-content-between titulo">
+        <div class="flex-column">
+            <h1 class="m-0 text-primary text-left">Adicionar endereço</h1>
+        </div>
+    </div>
+</template>
+
+<template id="TemplateModalAdicionarEnderecoBody">
+    <div class="row">
+        <div class="col-xl-3">
+            <label for="CEP" class="d-flex form-label">CEP *</label>
+            <div class="form-group" data="">
+                <div class="input-group" data-target-input="nearest">
+                    <input type="text" id="CEP" name="CEP" class="form-control" value="" autocomplete="off" data-mask="cep" maxlength="10">
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <label for="Logradouro" class="d-flex form-label">Logradouro *</label>
+            <div class="form-group" data="">
+                <div class="input-group" data-target-input="nearest">
+                    <input type="text" id="Logradouro" name="Logradouro" class="form-control" value="" autocomplete="off">
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3">
+            <label for="Complemento" class="d-flex form-label">Complemento</label>
+            <div class="form-group" data="">
+                <div class="input-group" data-target-input="nearest">
+                    <input type="text" id="Complemento" name="Complemento" class="form-control" value="" autocomplete="off">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-3">
+            <label for="Bairro" class="d-flex form-label">Bairro *</label>
+            <div class="form-group" data="">
+                <div class="input-group" data-target-input="nearest">
+                    <input type="text" id="Bairro" name="Bairro" class="form-control" value="" autocomplete="off">
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3">
+            <label for="Cidade" class="d-flex form-label">Cidade *</label>
+            <div class="form-group" data="">
+                <div class="input-group" data-target-input="nearest">
+                    <input type="text" id="Cidade" name="Cidade" class="form-control" value="" autocomplete="off">
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3">
+            <vc:drop-down options="@Html.DropDownOptions(m => m.Estado).RemovaDefaultMessage()"></vc:drop-down>
+        </div>
+        <div class="col-xl-3">
+            <label for="Numero" class="d-flex form-label">Numero</label>
+            <div class="form-group" data="">
+                <div class="input-group" data-target-input="nearest">
+                    <input type="text" id="Numero" name="Numero" class="form-control" value="" autocomplete="off">
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="TemplateModalAdicionarEnderecoFooter">
+    <div class="content-button">
+        <button id="botao-fechar-endereco" class="btn btn-danger py-2 my-0 px-4" onclick="aoSelecionarFecharEndereco(event)">
+            <i class="fa fa-times me-2"></i>
+            Fechar
+        </button>
+    </div>
+     <div class="content-button" onclick="aoConfirmarEndereco(event)">
+        <button id="botao-confirmar-endereco" class="btn btn-primary py-2 my-0 px-4">
+            <i class="fa fa-check me-2"></i>
+            Confirmar
+        </button>
+    </div>
+</template>
+
+<script defer>
+    let modalAdicionarEndereco = new ModalBuilder()
+        .cabecalho(obtenhaTemplate('TemplateModalAdicionarEnderecoHeader'))
+        .corpo(obtenhaTemplate('TemplateModalAdicionarEnderecoBody'))
+        .rodape(obtenhaTemplate('TemplateModalAdicionarEnderecoFooter'))
+        .xlargo()
+        .estatico()
+        .renderSemMostrar();
+
+    function aoSelecionarFecharEndereco(ev){
+        ev.preventDefault();
+        ev.stopPropagation();
+        modalAdicionarEndereco.hide();
+    }
+    function aoConfirmarEndereco(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        const camposObrigatorio = [CEP, Logradouro, Bairro, Cidade, Estado];
+        if (camposObrigatorio.some(camp => !camp.value)) {
+            return new Modal().atencao("Os campos marcados com * são obrigatórios").render();
+        }
+        const estado = Array.from(Estado.options).find(option => option.selected) ? `-${Array.from(Estado.options).find(option => option.selected).text}` : ""
+        const endereco = obtenhaEndereco();
+        if (endereco.Bairro && endereco.Cidade) {
+            Endereco.value = `${endereco.Bairro}-${endereco.Cidade}${estado}`;
+        }
+        modalAdicionarEndereco.hide();
+    }
+    function obtenhaEndereco(){
+        return {
+            Logradouro: Logradouro.value,
+            Numero: Numero.value || 0,
+            Complemento: Complemento.value,
+            Bairro: Bairro.value,
+            Cidade: Cidade.value,
+            Estado: parseInt(Estado.value),
+            CEP: CEP.value
+        }
+    }
+
+function preenchaEnderecoEdicao(endereco) {
+    const option = Array.from(Estado.options).find(estado => estado.value == endereco.estado);
+    if (endereco.bairro && endereco.cidade) {
+        Endereco.value = `${endereco.bairro}-${endereco.cidade}-${option.text}`;
+    }
+    CEP.value = endereco.cep;
+    Logradouro.value = endereco.logradouro;
+    Estado.value = endereco.estado;
+    Complemento.value = endereco.complemento;
+    Bairro.value = endereco.bairro;
+    Cidade.value = endereco.cidade;
+    Numero.value = endereco.numero;
+}
+
+</script>

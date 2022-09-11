@@ -29,5 +29,11 @@ namespace DS.WEB.Componentes
         {
             return new PesquisaBuilder().Init(expression);
         }
+
+        public static DropDownBuilder DropDownOptions<TModel, TProperty>(
+        this IHtmlHelper<TModel> _, Expression<Func<TModel, TProperty>> expression, object itens = null)
+        {
+            return new DropDownBuilder(itens).Init(expression);
+        }
     }
 }

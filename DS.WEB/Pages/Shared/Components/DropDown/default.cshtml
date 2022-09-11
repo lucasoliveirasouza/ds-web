@@ -1,0 +1,20 @@
+﻿<label for="@ViewBag.id" class="d-flex form-label">
+    <span class="label-@ViewBag.id">@ViewBag.label *</span>
+</label>
+<div class="form-group icon-dropdown">
+    <select id="@ViewBag.id" name="@ViewBag.name" class="@ViewBag.classList form-control" aria-describedby="validation@(ViewBag.id)" @(!string.IsNullOrEmpty(ViewBag.aoSelecionar) ? $"data-em-aoSelecionar={ViewBag.aoSelecionar}" : "")>
+        @if (!string.IsNullOrEmpty(ViewBag.defaultSelectMessage))
+        {
+            <option value="">@ViewBag.defaultSelectMessage</option>
+        }
+
+        @if (!Equals(ViewBag.itens, ""))
+        {
+            foreach (var item in ViewBag.itens)
+            {
+                <option value="@(item.GetType().GetProperty("Codigo") is not null ? item.Codigo : item.Value)">
+                    @(item.GetType().GetProperty("Descricao") is not null ? item.Descricao : item.Text)</option>
+            }
+        }
+    </select>
+</div>

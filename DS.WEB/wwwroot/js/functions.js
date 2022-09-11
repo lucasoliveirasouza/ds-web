@@ -10,7 +10,7 @@
 })
 
 class APIHelper {
-    static LocalHost = "http://localhost:5187";
+    static LocalHost = "https://localhost:7187";
     static LocalHostDisciplina = "http://localhost:8085";
     static ObjetoEmEdicao = {}
 }
