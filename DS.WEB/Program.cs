@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -25,5 +26,11 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.MapGet("/Sair", (HttpContext context) =>
+{
+    context.Response.Cookies.Delete("token-jwt");
+    context.Response.Redirect($"/login");
+}).ExcludeFromDescription();
 
 app.Run();

@@ -34,7 +34,7 @@ async function postJSON(optionsFetch) {
                 'Content-Type': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
                 'Access-Control-Allow-Origin': '*',
-                'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3YzI2MTJhNi1kZDQ5LTQ4ZWMtOGUzNi0yZWNlYjQwY2I3ZjMiLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE2NjI5MDMzNDksImV4cCI6MTY2MjkwNjk0OSwiaWF0IjoxNjYyOTAzMzQ5fQ.lJjYAFx8POzdz0NkEhjPmCSKIl5ty8JRpHNYD7tLgRs'
+                'Authorization': getCookie("token-jwt")
             }
         }
         :
@@ -44,7 +44,7 @@ async function postJSON(optionsFetch) {
                 'Content-Type': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
                 'Access-Control-Allow-Origin': '*',
-                'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3YzI2MTJhNi1kZDQ5LTQ4ZWMtOGUzNi0yZWNlYjQwY2I3ZjMiLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE2NjI5MDMzNDksImV4cCI6MTY2MjkwNjk0OSwiaWF0IjoxNjYyOTAzMzQ5fQ.lJjYAFx8POzdz0NkEhjPmCSKIl5ty8JRpHNYD7tLgRs'
+                'Authorization': getCookie("token-jwt")
             },
             redirect: 'follow',
             referrer: 'no-referrer',

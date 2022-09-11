@@ -2,6 +2,5 @@
 {
     public class ProfessorModel : PessoaModel
     {
-        public int Email { get; set; }
     }
 }

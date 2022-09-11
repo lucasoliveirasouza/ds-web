@@ -30,12 +30,12 @@
                                         .AddColumn(c => c.Bound(m => ((AlunoModel)m).Nome).Title("Nome").FlexBasis(150)))"/>
             </div>
         }
-        @*@if (((Type)ViewData["Tipo"]!).IsAssignableFrom(typeof(ProfessorModel))) {
+        @if (((Type)ViewData["Tipo"]!).IsAssignableFrom(typeof(ProfessorModel))) {
             <div class="col">
                 <vc:grid options="@(Html.Grid((string)ViewData["id"]!).PermiteUnicaSelecao()
                                         .AddColumn(c => c.Bound(m => ((ProfessorModel)m).Nome).Title("Nome")))"/>
             </div>
-            }*@
+            }
     </div>
 </template>
 
