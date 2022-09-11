@@ -8,8 +8,12 @@ namespace DS.WEB.Pages.Disciplina
     {
         public ProfessorModel Professor { get; }
 
-        public void OnGet()
+        public void OnGet(string id)
         {
+            if (!string.IsNullOrEmpty(id))
+            {
+                ViewData["idDisciplina"] = id;
+            }
         }
     }
 }

@@ -26,7 +26,7 @@
     </div>
 
     <div class="col-xl-4">
-        <vc:pesquisa options="@Html.Pesquisa(m => m.Professor).Action("https://localhost:7187/Professor", "GET")"></vc:pesquisa>
+        <vc:pesquisa options="@Html.Pesquisa(m => m.Professor).Action("http://localhost:5187/Professor", "GET")"></vc:pesquisa>
     </div>
 </div>
 
@@ -95,7 +95,7 @@ async function graveCadastroDisciplina(ev) {
     async function verifiqueEdicao() {
         idDisciplina = '@Html.Raw(idDisciplina)';
         if (idDisciplina) {
-            var url = new URL(`${APIHelper.LocalHost}/classes/id`)
+            var url = new URL(`${APIHelper.LocalHostDisciplina}/classes`)
             url.searchParams.append("id", idDisciplina);
             const options = {
                 url: url,
@@ -103,7 +103,11 @@ async function graveCadastroDisciplina(ev) {
             }
             const resposta = await postJSON(options);
             if (resposta) {
-                Descricao.value = resposta.description;
+                CargaHoraria.value = resposta[0].total_hours;
+                Nome.value =  resposta[0].name;
+                HorarioDisciplina.value = resposta[0].schedules;
+                
+
                 
             }
             debugger;

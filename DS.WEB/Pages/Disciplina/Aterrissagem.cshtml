@@ -36,10 +36,41 @@ async function pesquiseDisciplina() {
         const disciplinas = resposta.map(disciplina => {
             return {
                 Nome: disciplina.name,
+                Id: disciplina.id,
                 CargaHoraria: disciplina.total_hours + " hrs"
             }
         });
             Grid_Disciplinas.addRange(disciplinas);
     }
 }
+
+    function adicionarAlunoDisciplina(row) {
+        window.location.href = `/Disciplina/AdicionarAlunoDisciplina?id=${row.Id}&nome=${row.Nome}`
+    }
+
+    function aoEditarDisciplina(row)
+    {
+        window.location.href = `/Disciplina/Cadastrar?id=${row.Id}`
+    }
+
+    function aoRemoverDisciplina(row){
+        new Modal().confirmacao('Tem certeza que deseja excluir a disciplina selecionada ?', () => {
+            aoConfirmarRemocaoDisciplina(row);
+        }).render();
+
+    }
+
+    async function aoConfirmarRemocaoDisciplina(row){
+        const options = {
+            url: `${APIHelper.LocalHostDisciplina}/classes/${row.Id}`,
+            method: "DELETE"
+        }
+        const resposta = await postJSON(options);
+
+        if (resposta) {
+            Grid_Disciplinas.remove(row);
+            new Modal().sucesso().render();
+        }
+    }
+
 </script>
