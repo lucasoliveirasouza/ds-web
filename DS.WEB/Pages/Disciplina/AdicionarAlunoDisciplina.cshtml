@@ -1,0 +1,141 @@
+﻿@page
+@model DS.WEB.Pages.Disciplina.AdicionarAlunoDisciplinaModel
+@{
+    Layout = "_LayoutCadastro";
+    var idDisciplina = (string)ViewData["idDisciplina"];
+    var nomeDisciplina = (string)ViewData["nomeDisciplina"];
+
+    ViewData["tituloFuncao"] = nomeDisciplina ?? "Associação de alunos à disciplina";
+}
+
+<div class="row">
+    <div class="col-xl-9">
+        <vc:pesquisa options="@Html.Pesquisa(m => m.Aluno).Action("https://localhost:7187/Aluno", "GET")"></vc:pesquisa>
+    </div>
+    <div class="col-xl-3 mt-auto mb-3">
+        <button onclick="aoAdicionarAlunoDisciplina(event)" type="button" id="gravar" class="w-100 botao-cadastrar btn btn-success py-2 my-0 px-4">
+            <i style="color: white;" class="me-2 fa fa-plus"></i>Adicionar aluno
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12">
+        <vc:grid options="@(Html.GridOptions(m => m.AlunosDisciplina)
+                                .AddColumn(c => c.Bound(m => m.Matricula).FlexBasis(200))
+                                .AddColumn(c => c.Bound(m => m.Nome))
+                                .AddAction(a => a.Remover().AoClicar("aoRemoverAlunoDisciplina")))"></vc:grid>
+    </div>
+</div>
+
+<script defer>
+let idDisciplina;
+EventDomContentLoaded(async () => {
+    const botaoGravar = document.getElementById("gravar");
+    botaoGravar.classList.add('d-none');
+
+    const botaoCancelar = document.getElementById("cancelar");
+    botaoCancelar.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        new Modal().confirmacao("Tem certeza que deseja voltar para a lista de disciplinas ?", () => {
+            window.location.href = "/Disciplina/Aterrissagem"
+        }).render();
+    })
+
+    botaoCancelar.classList.value = 'botao-cancelar btn btn-info py-2 my-0 px-4'
+    botaoCancelar.innerHTML = "";
+    const iconeVoltar = h('i', {'class': 'me-2 fa fa-arrow-left'})
+    botaoCancelar.appendChild(iconeVoltar);
+    botaoCancelar.innerHTML += "Voltar"
+
+    await pesquiseTodosAlunos();
+})
+
+async function pesquiseTodosAlunos() {
+    const options = {
+        url: `${APIHelper.LocalHost}/Aluno`,
+        method: "GET"
+    }
+    
+    const resposta = await postJSON(options);
+
+    if (resposta && resposta.success) {
+        await pesquiseAlunosDisciplina(resposta.data);
+    }
+}
+
+async function pesquiseAlunosDisciplina(todosAlunos) {
+    idDisciplina = '@Html.Raw(idDisciplina)';
+    const urlDisciplina = `${APIHelper.LocalHostDisciplina}/classes/${idDisciplina}/student-classes`
+    
+    const options = {
+        url: urlDisciplina,
+        method: "GET"
+    }
+    const resposta = await postJSON(options);
+    if (resposta && resposta.length) 
+    {
+        const alunosDisciplina = todosAlunos.filter(aluno => resposta.find(alunoDisciplina => alunoDisciplina.student_id == aluno.id));
+        if (alunosDisciplina.length) {
+            const alunos = alunosDisciplina.map(aluno => {
+                return {
+                    Matricula: aluno.matricula,
+                    Id: aluno.id,
+                    Nome: aluno.nome
+                }
+            });
+            Grid_AlunosDisciplina.addRange(alunos);
+        }
+    }
+}
+
+async function aoAdicionarAlunoDisciplina(ev) {
+    ev.preventDefault();
+    const alunoEncontrado = Grid_AlunosDisciplina.getData().find(aluno => aluno.Id == Pesquisa_Aluno.obtenhaSelecionado().Id)
+
+    if (alunoEncontrado) {
+        new Modal().atencao("O aluno selecionado já encontra-se matriculado na disciplina").render();
+        return;
+    }
+
+    const options = {
+        url: `${APIHelper.LocalHostDisciplina}/student-classes`,
+        data: {
+            classID: idDisciplina,
+            studentID: Pesquisa_Aluno.obtenhaSelecionado().Id
+        }
+    }
+
+    const resposta = await postJSON(options);
+    if (resposta) {
+        const alunoSelecionado = {...Pesquisa_Aluno.obtenhaSelecionado(), selected: false}
+        Grid_AlunosDisciplina.add(alunoSelecionado);
+        new Modal().sucesso("Aluno incluído na disciplina com sucesso").render();
+        Pesquisa_Aluno.limpe();
+    }
+}
+
+function aoRemoverAlunoDisciplina(row) {
+    new Modal().confirmacao("Tem certeza que deseja remover o aluno da disciplina ?", (ev) => {
+        ev.preventDefault();
+        aoConfirmarRemocaoAlunoDisciplina(row);
+    }).render();
+}
+
+async function aoConfirmarRemocaoAlunoDisciplina(row) {
+    const options = {
+        url: `${APIHelper.LocalHostDisciplina}/student-classes`,
+        data: {
+            classID: idDisciplina,
+            studentID: row.Id
+        },
+        method: "DELETE"
+    }
+
+    const resposta = await postJSON(options);
+    if (resposta) {
+        Grid_AlunosDisciplina.remove(row);
+        new Modal().sucesso("Aluno removido da disciplina").render();
+    }
+}
+</script>

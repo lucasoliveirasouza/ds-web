@@ -28,7 +28,6 @@ EventDomContentLoaded(async () => {
 })
 
 async function pesquiseAlunos() {
-    debugger;
     const optionsFetch = {
         url: `${APIHelper.LocalHost}/Aluno`,
         method: "GET"
@@ -60,7 +59,6 @@ function aoRemoverAluno(row)
 }
 async function confirmeRemocaoAluno(row) 
 {
-    debugger;
     const optionsFetch = {
         url: `${APIHelper.LocalHost}/Aluno`,
         data: {

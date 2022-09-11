@@ -62,6 +62,14 @@ async function postJSON(optionsFetch) {
         }
         return json;
     }
+    if (response.status === 201) {
+        let json = await response.json();
+        return json;
+    }
+
+    if (response.status === 204) {
+        return true;
+    }
 }
 
 function getCookie(cname) {

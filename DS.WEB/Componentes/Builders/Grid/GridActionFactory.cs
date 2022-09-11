@@ -33,6 +33,17 @@ namespace DS.WEB.Componentes.Builders.Grid
             return this;
         }
 
+        public GridActionFactory AdicionarAluno()
+        {
+            Icon("fa fa-users")
+                .DataRole("em-grid-adicionar-aluno")
+                .Class("btn-outline-info")
+                .Title("Adicionar aluno")
+                .Tooltip("tooltip-success");
+
+            return this;
+        }
+
         private GridActionFactory DataRole(string dataRole)
         {
             _action.DataRole = dataRole;

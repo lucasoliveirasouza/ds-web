@@ -52,7 +52,6 @@
                 Senha: Senha.value
             }
         }
-        debugger;
         const resposta = await postJSON(optionsFetch);
         if (resposta && resposta.success) {
             document.cookie = 'token-jwt=' + resposta.data.token;

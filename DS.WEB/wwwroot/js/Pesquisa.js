@@ -91,10 +91,11 @@
 
         if (resposta && resposta.success) {
             let data;
-            if (this._options.modelName == "AlunoResponse" || this._options.modelName == "ProfessorModel") {
+            if (this._options.modelName == "AlunoModel" || this._options.modelName == "ProfessorModel") {
                 data = resposta.data.map(obj => {
                     return {
                         Id: obj.id,
+                        Matricula: obj.matricula,
                         Nome: obj.nome
                     }
                 });
