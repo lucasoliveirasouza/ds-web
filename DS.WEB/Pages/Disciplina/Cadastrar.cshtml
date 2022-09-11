@@ -68,15 +68,16 @@ async function graveCadastroDisciplina(ev) {
     const optionsFetch = {
         url: `${APIHelper.LocalHostDisciplina}/classes`,
         data: {
-            description: "Teste",
-            name: "Teste",
-            schedules: "5544",
-            teacher_id: "16804657-2ffe-44e8-a162-ec00fde9755d",
-            total_hours: 64
+                description: Descricao.value,
+                name: Nome.value,
+                schedules: HorarioDisciplina.value,
+                teacher_id: Pesquisa_Professor.obtenhaSelecionado().Id,
+                total_hours: parseInt(CargaHoraria.value)
         }
+        
     }
     const resposta = await postJSON(optionsFetch);
-    if(resposta && resposta.success)
+    if(resposta)
     {
         new Modal().sucesso('Disciplina cadastrada com sucesso.').depoisDeOcultar(() =>{
             window.location.href = '/Disciplina/Aterrissagem';

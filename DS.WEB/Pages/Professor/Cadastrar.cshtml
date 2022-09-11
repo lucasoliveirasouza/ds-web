@@ -3,8 +3,10 @@
 @{
     Layout = "_LayoutCadastro";
     ViewData["tituloFuncao"] = "Cadastro de professores";
-    var professorEdicao = "";
+    var idProfessor = (string)ViewData["idProfessor"];
 }
+
+<partial name="Shared/Components/_ModalEndereco" model="new DS.WEB.Pages.Shared.Components._ModalEnderecoModel()" />
 
 <div class="row">
     <div class="col-xl-3">
@@ -28,10 +30,10 @@
         <div class="form-group" data="">
             <div class="input-group" data-target-input="nearest">
                 <input readonly type="text" maxlength="11" id="Endereco" name="Endereco" class="form-control" value="" autocomplete="off">
-                <div class="input-group-append" style="@(professorEdicao == "''" ? "background: var(--success);" : "background: var(--warning);")">
-                    <button type="button" class="btn py-2 my-0 px-4 " title="@(professorEdicao == "''" ? "Adicionar endereco" : "Editar endereco")"
-                            data-bs-toggle="tooltip" tabindex="-1" onclick="adicionarEndereco(event)">
-                        <i style="color: white;" class="@(professorEdicao == "''" ? "fa fa-plus" : "fa fa-pencil")"></i>
+                <div class="input-group-append" style="@(string.IsNullOrEmpty(idProfessor) ? "background: var(--success);" : "background: var(--warning);")">
+                    <button type="button" class="btn py-2 my-0 px-4 " title="@(string.IsNullOrEmpty(idProfessor) ? "Adicionar endereco" : "Editar endereco")" 
+                        data-bs-toggle="tooltip" tabindex="-1" onclick="adicionarEndereco(event)">
+                        <i style="color: white;" class="@(string.IsNullOrEmpty(idProfessor) ? "fa fa-plus" : "fa fa-pencil")"></i>
                     </button>
                 </div>
             </div>
@@ -81,43 +83,69 @@
     EventDomContentLoaded(() => {
         const botaoGravar = document.getElementById('gravar');
         const botaoCancelar = document.getElementById('cancelar');
-        botaoGravar.addEventListener('click', graveCadastroAluno)
+        botaoGravar.addEventListener('click', graveCadastroProfessor)
         botaoCancelar.addEventListener('click', (ev) => {
             ev.preventDefault();
             new Modal().confirmacao("Tem certeza que deseja cancelar o cadastro?", () => {
                 window.location.href = '/Professor/Aterrissagem';
             }).render();
-
         });
+        verifiqueEdicao();
     });
 
-    async function graveCadastroAluno(ev) {
-        ev.preventDefault();
-        const optionsFetch = {
-            url: `${APIHelper.LocalHost}/professor`,
-            data: {
-                Nome: Nome.value,
-                Cpf: CPF.value,
-                DataNascimento: DataNascimento.value.convertaStrLocaleToDate(),
-                Email: Email.value,
-                Senha: Senha.value,
-                Endereco: {
-                    Cidade: "Goiânia",
-                    Numero: 2,
-                    Bairro: 'Bairro',
-                    CEP: '7400000',
-                    Complemento: 'Complemento',
-                    Estado: 1,
-                    Logradouro: 'Logradouro'
-                }
-            }
-        }
-        const resposta = await postJSON(optionsFetch);
-        if (resposta && resposta.success) {
-            new Modal().sucesso('Professor cadastrado com sucesso.').depoisDeOcultar(() => {
-                window.location.href = '/Professor/Aterrissagem';
-            }).render()
+async function graveCadastroProfessor(ev) {
+    ev.preventDefault();
+    const optionsFetch = {
+        url: `${APIHelper.LocalHost}/Professor`,
+        data: {
+            Nome: Nome.value,
+            Cpf: CPF.value,
+            DataNascimento: DataNascimento.value.convertaStrLocaleToDate(),
+            Email: Email.value,
+            Senha: Senha.value,
+            Endereco: obtenhaEndereco()
         }
     }
+        if (idProfessor) {
+        optionsFetch.method = "PUT"
+            optionsFetch.data.Id = idProfessor;
+    }
+    const resposta = await postJSON(optionsFetch);
+    if(resposta && resposta.success)
+    {
+        new Modal().sucesso(idProfessor ? 'Professor editado com sucesso.' : 'Professor cadastrado com sucesso.').depoisDeOcultar(() =>{
+            window.location.href = '/Professor/Aterrissagem';
+        }).render()
+    }
+}
+    let idProfessor;
+async function verifiqueEdicao()
+{
+        idProfessor = '@Html.Raw(idProfessor)';
+        if (idProfessor) {
+        var url = new URL(`${APIHelper.LocalHost}/Professor/id`)
+            url.searchParams.append("id", idProfessor);
+        const options = {
+            url: url,
+            method: "GET"
+        }
+        const resposta = await postJSON(options);
+        if (resposta && resposta.success) {
+            preenchaEnderecoEdicao(resposta.data.endereco);
+            Nome.value = resposta.data.nome;
+            CPF.value = resposta.data.cpf;
+            DataNascimento.value = resposta.data.dataNascimento.convertaStrLocaleToDate().convertaDateToStrDiaMesAno();
+            Email.value = resposta.data.email;
+            Senha.disabled = true;
+            Matricula.disabled = true;
+        }
+        debugger;
+    }
+}
 
+function adicionarEndereco(ev){
+    ev.preventDefault();
+    ev.stopPropagation();
+    modalAdicionarEndereco.show();
+}
 </script>
