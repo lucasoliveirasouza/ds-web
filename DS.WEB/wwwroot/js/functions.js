@@ -11,6 +11,7 @@
 
 class APIHelper {
     static LocalHost = "https://localhost:7187";
+    static LocalHostDisciplina = "http://localhost:8085";
 }
 
 function inputHandler(masks, max, event) {
@@ -33,7 +34,7 @@ async function postJSON(optionsFetch) {
                 'Content-Type': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
                 'Access-Control-Allow-Origin': '*',
-                'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxZmQ4N2E5Yi1iNDY2LTQ4NWMtYjg5Ny1jYzJiNmJiODZlMzQiLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE2NjI4NDI4MDksImV4cCI6MTY2Mjg0NjQwOSwiaWF0IjoxNjYyODQyODA5fQ.Ox-FvkYqgAUwtnzKuQv-NM4acJHvZv_UtB9fyrZvHTQ'
+                'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxZmQ4N2E5Yi1iNDY2LTQ4NWMtYjg5Ny1jYzJiNmJiODZlMzQiLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE2NjI4NjQzNzEsImV4cCI6MTY2Mjg2Nzk3MSwiaWF0IjoxNjYyODY0MzcxfQ.wM20nnXS_zAv4Ic-jrOPGSjyPgtAFM83R-3MUZoZNWQ'
             }
         }
         :
@@ -128,3 +129,30 @@ String.prototype.convertaStrLocaleToDate = function () {
     if (this.length <= 0) return;
     return new Date(this.split("/").reverse().join('.'));
 };
+
+function obtenhaTemplate(idTemplate) {
+    return document.importNode(document.querySelector(`#${idTemplate}`).content, true);
+}
+
+const h = (el, atributes, ...children) => {
+    var e = document.createElement(el);
+    atr(e, atributes);
+    ch(e, children);
+    return e;
+}
+
+const atr = (e, atr) => {
+    if (!atr) return;
+    for (let at in atr) {
+        e.setAttribute(at, atr[at]);
+    }
+}
+
+const ch = (e, children) => {
+    if (!children) return;
+    if (Array.isArray(children)) {
+        children.flatMap(c => c).forEach(c => {
+            e.appendChild(c);
+        });
+    }
+}

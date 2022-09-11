@@ -2,11 +2,11 @@ using DS.WEB.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DS.WEB.Pages.Aluno
+namespace DS.WEB.Pages.Disciplina
 {
-    public class CadastrarAlunoModel : PageModel
+    public class CadastrarDisciplinaModel : PageModel
     {
-        public AlunoModel Aluno { get; }
+        public ProfessorModel Professor { get; }
 
         public void OnGet()
         {

@@ -1,0 +1,42 @@
+﻿@page
+@model DS.WEB.Pages.Disciplina.AterrissagemDisciplinaModel
+@{
+    Layout = "_LayoutAterrissagem";
+    ViewData["tituloFuncao"] = "Disciplinas";
+}
+<div class="row">
+    <div class="col-xl-12">
+        <vc:grid options="@(Html.GridOptions(m => m.Disciplinas)
+                                .AddColumn(c => c.Bound(m => m.Nome)))"></vc:grid>
+    </div>
+</div>
+
+<script defer>
+EventDomContentLoaded(async () => {
+    await pesquiseDisciplina();
+
+    const botaoCadastrar = document.getElementById('cadastrar');
+    botaoCadastrar.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        window.location.href = '/Aluno/Cadastrar';
+    })
+})
+
+async function pesquiseDisciplina() {
+    debugger;
+    const optionsFetch = {
+        url: `${APIHelper.LocalHostDisciplina}/classes`,
+        method: "GET"
+    }
+    const resposta = await postJSON(optionsFetch);
+    if (resposta.data) {
+        const alunos = resposta.data.map(aluno => {
+            return {
+                Nome: aluno.nome,
+                Matricula: 1
+            }
+        });
+        Grid_Alunos.addRange(alunos);
+    }
+}
+</script>

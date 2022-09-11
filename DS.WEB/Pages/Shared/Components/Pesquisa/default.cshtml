@@ -1,0 +1,91 @@
+﻿@using System.Linq;
+@using System.Text.Json;
+@using DS.WEB.Model;
+@{
+    var actionModel = (string)ViewData["Action"]!;
+    var modelName = ((Type)ViewData["Tipo"]!).Name;
+    var methodModel = (string)ViewData["Method"]!;
+}
+
+<template id="pesquisa@(ViewData["id"])">
+    <div class="row mb-2">
+        <div class="col">
+            <label for="@(ViewData["id"])Pesquisa">@ViewData["label"]</label>
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" autocomplete="off" id="@(ViewData["id"])Pesquisa" class="form-control">
+                    <div class="input-group-append">
+                        <button type="button" id="@(ViewData["id"])ApagarPesquisa" class="btn btn-outline-danger py-2 my-0 px-4" data-bs-toggle="tooltip" tabindex="-1">
+                            <i class="fa fa-eraser"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col">
+            @if (((Type)ViewData["Tipo"]!).IsAssignableFrom(typeof(AlunoModel))) {
+                <vc:grid options="@(Html.Grid((string)ViewData["id"]!).PermiteUnicaSelecao()
+                                        .AddColumn(c => c.Bound(m => ((AlunoModel)m).Nome).Title("Nome").FlexBasis(150)))"/>
+            }
+        </div>
+    </div>
+</template>
+
+<template id="footerPesquisa@(ViewData["id"])">
+    <button type="button" id="@(ViewData["id"])Fechar" class="btn btn-danger py-2 my-0 px-4" tabindex="-1">
+        <i class="fa-solid fa-xmark">
+            Fechar
+        </i>
+    </button>
+    <button type="button" id="@(ViewData["id"])Selecionar" class="btn btn-primary py-2 my-0 px-4" tabindex="-1">
+        <i class="fa-solid fa-check">
+            Selecionar
+        </i>
+    </button>
+</template>
+
+<div id="@(ViewData["id"])_container">
+    <input type="hidden" id="@ViewData["id"]" name="@(ViewData["name"])" value="@ViewData["key"]" data-role="@ViewData["id"]" />
+
+    <label class="label-@(ViewData["id"])_text" for="@ViewData["id"]_text">
+        @ViewData["label"]
+    </label>
+
+    <div class="form-group" pesquisa>
+        <div class="input-group">
+            <input type="text" autocomplete="off" id="@(ViewData["id"])_text" data-role="@(ViewData["id"])_text" value="@ViewData["descricao"]" class="form-control pesquisa_text" aria-describedby="validation@(ViewData["id"])_text">
+            <button type="button" id="@(ViewData["id"])ApagarSelecionado" class="btn btn-outline-danger py-2 my-0 px-4" data-bs-toggle="tooltip-danger" title="Limpar" tabindex="-1">
+                <i class="fa fa-eraser"></i>
+            </button>
+            <button type="button" id="@(ViewData["id"])Pesquisar" class="btn btn-outline-primary py-2 my-0 px-4" data-bs-toggle="tooltip" title="Pesquisar" tabindex="-1">
+                <i class="fa fa-magnifying-glass"></i>
+            </button>
+        </div>
+    </div>
+    <div id="validation@(ViewData["id"])_text" class="invalid-feedback">
+        @(ViewData["invalideMessage"] is not null ? ViewData["invalideMessage"] : "Selecione algum item..")
+    </div>
+</div>
+
+<script>
+    let Pesquisa_@ViewData["id"];
+    EventDomContentLoaded(() => {
+        Pesquisa_@ViewData["id"] = new Pesquisa({
+        id: '@ViewData["id"]',
+        modelName: '@modelName',
+        action: '@actionModel',
+        method: '@methodModel',
+        antesSelecionar: '@ViewData["AntesSelecionar"]',
+        aoSelecionar: '@ViewData["AoSelecionar"]',
+        aoApagar: '@ViewData["AoApagar"]',
+        parametrosPesquisa: '@Html.Raw(ViewData["ParametrosPesquisa"])',
+        keyName: '@ViewData["KeyName"]',
+        templateBody: obtenhaTemplate('pesquisa@(ViewData["id"])'),
+        templateFooter: obtenhaTemplate('footerPesquisa@(ViewData["id"])'),
+        ehPesquisaServerSide: @((bool)ViewData["EhPesquisaServerSide"]! ? "true" : "false"),
+        propriedadeFiltro: '@ViewData["FiltrarPor"]'
+    });
+});
+</script>

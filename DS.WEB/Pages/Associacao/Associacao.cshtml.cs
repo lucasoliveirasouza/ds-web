@@ -1,13 +1,10 @@
-using DS.WEB.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DS.WEB.Pages.Aluno
+namespace DS.WEB.Pages.Associacao
 {
-    public class CadastrarAlunoModel : PageModel
+    public class AssociacaoModel : PageModel
     {
-        public AlunoModel Aluno { get; }
-
         public void OnGet()
         {
         }

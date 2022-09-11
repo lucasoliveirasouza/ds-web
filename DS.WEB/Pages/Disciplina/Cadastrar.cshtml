@@ -1,0 +1,44 @@
+﻿@page
+@model DS.WEB.Pages.Disciplina.CadastrarDisciplinaModel
+@{
+    Layout = "_LayoutCadastro";
+    ViewData["tituloFuncao"] = "Cadastro de disciplina";
+}
+
+<div class="row">
+    <div class="col-xl-4">
+        <label for="Nome" class="d-flex form-label">Nome</label>
+        <div class="form-group" data="">
+            <div class="input-group" data-target-input="nearest">
+                <input type="text" id="Nome" name="Nome" class="form-control" value="" autocomplete="off">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4">
+        <label for="Descricao" class="d-flex form-label">Descricao</label>
+        <div class="form-group" data="">
+            <div class="input-group" data-target-input="nearest">
+                <input type="text" id="Descricao" name="Descricao" class="form-control" value="" autocomplete="off">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4">
+        <vc:pesquisa options="@Html.Pesquisa(m => m.Professor).Action("https://localhost:7187/Professor")"></vc:pesquisa>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-4">
+
+    </div>
+
+    <div class="col-xl-4">
+
+    </div>
+
+    <div class="col-xl-4">
+
+    </div>
+</div>

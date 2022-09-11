@@ -83,7 +83,7 @@
 html { font-size: 14px; }
 
 body {
-    /*background: var(--bs-body-color);*/
+    background: var(--bs-gray-200);
     padding: 0;
     transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out !important;
     color: var(--dark);
