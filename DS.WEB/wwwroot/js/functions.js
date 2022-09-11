@@ -10,7 +10,7 @@
 })
 
 class APIHelper {
-    static LocalHost = "http://localhost:5187";
+    static LocalHost = "https://localhost:7187";
 }
 
 function inputHandler(masks, max, event) {
@@ -33,7 +33,7 @@ async function postJSON(optionsFetch) {
                 'Content-Type': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
                 'Access-Control-Allow-Origin': '*',
-                'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3YzI2MTJhNi1kZDQ5LTQ4ZWMtOGUzNi0yZWNlYjQwY2I3ZjMiLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE2NjI4NDg1ODMsImV4cCI6MTY2Mjg1MjE4MywiaWF0IjoxNjYyODQ4NTgzfQ.yz8Wy5kNed8dgoTlYkT41shuHeCiIybM_YIE-50hW1k'
+                'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3YzI2MTJhNi1kZDQ5LTQ4ZWMtOGUzNi0yZWNlYjQwY2I3ZjMiLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE2NjI5MDMzNDksImV4cCI6MTY2MjkwNjk0OSwiaWF0IjoxNjYyOTAzMzQ5fQ.lJjYAFx8POzdz0NkEhjPmCSKIl5ty8JRpHNYD7tLgRs'
             }
         }
         :
@@ -43,7 +43,7 @@ async function postJSON(optionsFetch) {
                 'Content-Type': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
                 'Access-Control-Allow-Origin': '*',
-                'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3YzI2MTJhNi1kZDQ5LTQ4ZWMtOGUzNi0yZWNlYjQwY2I3ZjMiLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE2NjI4NDg1ODMsImV4cCI6MTY2Mjg1MjE4MywiaWF0IjoxNjYyODQ4NTgzfQ.yz8Wy5kNed8dgoTlYkT41shuHeCiIybM_YIE-50hW1k'
+                'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3YzI2MTJhNi1kZDQ5LTQ4ZWMtOGUzNi0yZWNlYjQwY2I3ZjMiLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE2NjI5MDMzNDksImV4cCI6MTY2MjkwNjk0OSwiaWF0IjoxNjYyOTAzMzQ5fQ.lJjYAFx8POzdz0NkEhjPmCSKIl5ty8JRpHNYD7tLgRs'
             },
             redirect: 'follow',
             referrer: 'no-referrer',
