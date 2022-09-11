@@ -91,14 +91,15 @@
 
         if (resposta && resposta.success) {
             let data;
-            if (this._options.modelName == "AlunoResponse") {
-                data = resposta.data.map(aluno => {
+            if (this._options.modelName == "AlunoResponse" || this._options.modelName == "ProfessorModel") {
+                data = resposta.data.map(obj => {
                     return {
-                        Id: aluno.id,
-                        Nome: aluno.nome
+                        Id: obj.id,
+                        Nome: obj.nome
                     }
                 });
-            } else {
+            }
+            else {
                 data = resposta.data;
             }
             if (!Object.keys(data).length) data = [];

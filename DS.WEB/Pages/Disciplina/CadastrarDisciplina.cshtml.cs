@@ -6,7 +6,7 @@ namespace DS.WEB.Pages.Disciplina
 {
     public class CadastrarDisciplinaModel : PageModel
     {
-        public ProfessorModel Professor { get; }
+        //public ProfessorModel Professor { get; }
 
         public void OnGet()
         {

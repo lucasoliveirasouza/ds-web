@@ -25,20 +25,63 @@
     </div>
 
     <div class="col-xl-4">
-        <vc:pesquisa options="@Html.Pesquisa(m => m.Professor).Action("https://localhost:7187/Professor")"></vc:pesquisa>
+        @*<vc:pesquisa options="@Html.Pesquisa(m => m.Professor).Action("https://localhost:7187/Professor", "GET")"></vc:pesquisa>*@
     </div>
 </div>
 
 <div class="row">
     <div class="col-xl-4">
-
+        <label for="CargaHoraria" class="d-flex form-label">Carga horaria</label>
+        <div class="form-group" data="">
+            <div class="input-group" data-target-input="nearest">
+                <input type="text" id="CargaHoraria" name="CargaHoraria" class="form-control" value="" autocomplete="off">
+            </div>
+        </div>
     </div>
 
     <div class="col-xl-4">
-
-    </div>
-
-    <div class="col-xl-4">
-
+        <label for="HorarioDisciplina" class="d-flex form-label">Horário da disciplina</label>
+        <div class="form-group" data="">
+            <div class="input-group" data-target-input="nearest">
+                <input type="text" id="HorarioDisciplina" name="HorarioDisciplina" class="form-control" value="" autocomplete="off">
+            </div>
+        </div>
     </div>
 </div>
+
+<script defer>
+    EventDomContentLoaded(() => {
+        const botaoGravar = document.getElementById('gravar');
+        const botaoCancelar = document.getElementById('cancelar');
+        botaoGravar.addEventListener('click', graveCadastroDisciplina)
+        botaoCancelar.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            new Modal().confirmacao("Tem certeza que deseja cancelar o cadastro?", () =>{
+                window.location.href = '/Disciplina/Aterrissagem';
+            }).render();
+            
+        });
+    });
+
+async function graveCadastroDisciplina(ev) {
+    ev.preventDefault();
+    const optionsFetch = {
+        url: `${APIHelper.LocalHostDisciplina}/classes`,
+        data: {
+            description: Descricao.value,
+            name: Nome.value,
+            schedules: CargaHoraria.value,
+            teacher_id: "81136ed8-0df4-4892-8a4a-258a986ec440",
+            total_hours: TotalHoras.value
+        }
+    }
+    const resposta = await postJSON(optionsFetch);
+    if(resposta && resposta.success)
+    {
+        new Modal().sucesso('Disciplina cadastrada com sucesso.').depoisDeOcultar(() =>{
+            window.location.href = '/Disciplina/Aterrissagem';
+        }).render()
+    }
+}
+
+</script>
