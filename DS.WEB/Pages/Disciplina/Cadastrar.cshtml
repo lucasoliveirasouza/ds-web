@@ -80,11 +80,24 @@ async function graveCadastroDisciplina(ev) {
     }
    
         if (idDisciplina) {
-            optionsFetch.method = "PUT"
-            optionsFetch.data.Id = idDisciplina;
+            var url = new URL(`${APIHelper.LocalHostDisciplina}/classes`)
+            url.searchParams.append("id", idDisciplina);
+            const optionsFetch = {
+                url: url,
+                method: "PUT",
+                data: {
+                    description: Descricao.value,
+                    name: Nome.value,
+                    schedules: HorarioDisciplina.value,
+                    teacher_id: Pesquisa_Professor.obtenhaSelecionado().Id,
+                    total_hours: parseInt(CargaHoraria.value)
+                }
+               
+
+            }
         }
         const resposta = await postJSON(optionsFetch);
-        if (resposta && resposta.success) {
+        if (resposta) {
             new Modal().sucesso(idDisciplina ? 'Disciplina editada com sucesso.' : 'Disciplina cadastrado com sucesso.').depoisDeOcultar(() => {
                 window.location.href = '/Disciplina/Aterrissagem';
             }).render()
@@ -106,7 +119,7 @@ async function graveCadastroDisciplina(ev) {
                 CargaHoraria.value = resposta[0].total_hours;
                 Nome.value =  resposta[0].name;
                 HorarioDisciplina.value = resposta[0].schedules;
-                
+                Descricao.value = resposta[0].description;
 
                 
             }
