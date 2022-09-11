@@ -29,14 +29,14 @@ async function pesquiseDisciplina() {
         method: "GET"
     }
     const resposta = await postJSON(optionsFetch);
-    if (resposta.data) {
-        const alunos = resposta.data.map(aluno => {
+    if (resposta) {
+        const disciplinas = resposta.map(disciplina => {
             return {
-                Nome: aluno.nome,
+                    Nome: disciplina.name,
                 Matricula: 1
             }
         });
-        Grid_Alunos.addRange(alunos);
+            Grid_Disciplinas.addRange(disciplinas);
     }
 }
 </script>

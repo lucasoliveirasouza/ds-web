@@ -25,7 +25,7 @@
     </div>
 
     <div class="col-xl-4">
-        <vc:pesquisa options="@Html.Pesquisa(m => m.Professor).Action("https://localhost:7187/Professor", "GET")"></vc:pesquisa>
+        <vc:pesquisa options="@Html.Pesquisa(m => m.Professor).Action("http://localhost:5187/Professor", "GET")"></vc:pesquisa>
     </div>
 </div>
 
@@ -68,11 +68,11 @@ async function graveCadastroDisciplina(ev) {
     const optionsFetch = {
         url: `${APIHelper.LocalHostDisciplina}/classes`,
         data: {
-            description: Descricao.value,
-            name: Nome.value,
-            schedules: CargaHoraria.value,
-            teacher_id: "81136ed8-0df4-4892-8a4a-258a986ec440",
-            total_hours: TotalHoras.value
+            description: "Teste",
+            name: "Teste",
+            schedules: "5544",
+                teacher_id: "16804657-2ffe-44e8-a162-ec00fde9755d",
+            total_hours: 64
         }
     }
     const resposta = await postJSON(optionsFetch);
