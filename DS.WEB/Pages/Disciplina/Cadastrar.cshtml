@@ -17,7 +17,7 @@
     </div>
 
     <div class="col-xl-4">
-        <label for="Descricao" class="d-flex form-label">Descricao</label>
+        <label for="Descricao" class="d-flex form-label">Descrição</label>
         <div class="form-group" data="">
             <div class="input-group" data-target-input="nearest">
                 <input type="text" id="Descricao" name="Descricao" class="form-control" value="" autocomplete="off">
@@ -26,7 +26,7 @@
     </div>
 
     <div class="col-xl-4">
-        <vc:pesquisa options="@Html.Pesquisa(m => m.Professor).Action("https://localhost:7187/Professor", "GET")"></vc:pesquisa>
+        <vc:pesquisa options="@Html.Pesquisa(m => m.Professor).Action("http://localhost:5187/Professor", "GET")"></vc:pesquisa>
     </div>
 </div>
 
