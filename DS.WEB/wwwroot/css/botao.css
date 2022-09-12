@@ -83,31 +83,29 @@ label .btn-link {
 /* PRIMARY OUTLINE */
 
 .btn-outline-primary {
-    background: var(--content);
-    border-color: var(--secondary-dark);
+    border: none
+}
+
+.btn-outline-primary i {
     color: var(--dark);
 }
 
-    .btn-outline-primary i {
-        color: var(--dark);
-    }
+.btn-outline-primary:not([disabled]):hover,
+.btn-outline-primary:not([disabled]):focus,
+.btn-outline-primary:not([disabled]):active,
+.btn-outline-primary:not([disabled]).active {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: var(--content) !important;
+    box-shadow: 0px 5px 10px 0px var(--primary-20) !important;
+}
 
-    .btn-outline-primary:not([disabled]):hover,
-    .btn-outline-primary:not([disabled]):focus,
-    .btn-outline-primary:not([disabled]):active,
-    .btn-outline-primary:not([disabled]).active {
-        background: var(--primary) !important;
-        border-color: var(--primary) !important;
-        color: var(--content) !important;
-        box-shadow: 0px 5px 10px 0px var(--primary-20) !important;
-    }
-
-        .btn-outline-primary:not([disabled]):hover i,
-        .btn-outline-primary:not([disabled]):focus i,
-        .btn-outline-primary:not([disabled]):active i,
-        .btn-outline-primary:not([disabled]).active i {
-            color: var(--content) !important;
-        }
+.btn-outline-primary:not([disabled]):hover i,
+.btn-outline-primary:not([disabled]):focus i,
+.btn-outline-primary:not([disabled]):active i,
+.btn-outline-primary:not([disabled]).active i {
+    color: var(--content) !important;
+}
 
 /* SECONDARY */
 
@@ -259,9 +257,7 @@ label .btn-link {
 
 /* DANGER OUTLINE */
 .btn-outline-danger {
-    background: var(--content);
-    border-color: var(--secondary-dark);
-    color: var(--dark);
+    border: none;
 }
 
     .btn-outline-danger i {
@@ -378,9 +374,7 @@ label .btn-link {
 /* INFO OUTLINE */
 
 .btn-outline-info {
-    background: var(--content);
-    border-color: var(--secondary-dark);
-    color: var(--dark);
+    border:none;
 }
 
     .btn-outline-info i {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - DS.WEB</title>
+    <title>Gestão escolar</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/solid.min.css" />
@@ -18,20 +18,32 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="@Url.Content("~/js/Modal.js")"></script>
 </head>
-<body>
+<body class="background-imagem">
     <header>
         <nav class="d-flex justify-content-center navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="nav-item justify-content-end" style="position: absolute;margin-right: 129rem;">
+			    <a class="nav-link link-home" href="/Index"><i class="fa fa-house me-2"></i>Home</a>
+			</div>
             <div class="container-menu">
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item me-4">
-                            <a class="botao-cadastrar btn btn-primary py-2 my-0 px-4 nav-link text-white" asp-page="/Aluno/Aterrissagem">Aluno</a>
+                            <a class="botao-cadastrar btn btn-primary py-2 my-0 px-4 nav-link text-white" asp-page="/Aluno/Aterrissagem">
+                                <i class="fa fa-graduation-cap me-2"></i>
+                                Aluno
+                            </a>
                         </li>
                         <li class="nav-item me-4">
-                            <a class="botao-cadastrar btn btn-primary py-2 my-0 px-4 nav-link text-white" asp-page="/Professor/Aterrissagem">Professor</a>
+                            <a class="botao-cadastrar btn btn-primary py-2 my-0 px-4 nav-link text-white" asp-page="/Professor/Aterrissagem">
+                                <i class="fa fa-person-chalkboard me-2"></i>
+                                Professor
+                            </a>
                         </li>
                         <li class="nav-item me-4">
-                            <a class="botao-cadastrar btn btn-primary py-2 my-0 px-4 nav-link text-white" asp-page="/Disciplina/Aterrissagem">Disciplina</a>
+                            <a class="botao-cadastrar btn btn-primary py-2 my-0 px-4 nav-link text-white" asp-page="/Disciplina/Aterrissagem">
+                                <i class="fa fa-book me-2"></i>
+                                Disciplina
+                            </a>
                         </li>
                     </ul>
                 </div>

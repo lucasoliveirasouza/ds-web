@@ -9,7 +9,7 @@
         <vc:grid options="@(Html.GridOptions(m => m.Disciplinas)
                                 .AddColumn(c => c.Bound(m => m.Nome))
                                 .AddColumn(c => c.Bound(m => m.Horario))
-                                .AddColumn(c => c.Bound(m => m.CargaHoraria))
+                                .AddColumn(c => c.Bound(m => m.CargaHoraria).FlexBasis(300))
                                 .AddAction(a => a.Remover().AoClicar("aoRemoverDisciplina"))
                                 .AddAction(a => a.Editar().AoClicar("aoEditarDisciplina"))
                                 .AddAction(a => a.AdicionarAluno().AoClicar("adicionarAlunoDisciplina")))"></vc:grid>
@@ -71,7 +71,7 @@ async function pesquiseDisciplina() {
 
         if (resposta) {
             Grid_Disciplinas.remove(row);
-            new Modal().sucesso().render();
+            new Modal().sucesso('Disciplina excluida com sucesso').render();
         }
     }
 

@@ -26,7 +26,7 @@
     </div>
 
     <div class="col-xl-4">
-        <vc:pesquisa options="@Html.Pesquisa(m => m.Professor).Action("http://localhost:5187/Professor", "GET")"></vc:pesquisa>
+        <vc:pesquisa options="@Html.Pesquisa(m => m.Professor).Action("https://localhost:7187/Professor", "GET")"></vc:pesquisa>
     </div>
 </div>
 
@@ -95,6 +95,8 @@ async function graveCadastroDisciplina(ev) {
 
     let idDisciplina;
     async function verifiqueEdicao() {
+        const professores = await Pesquisa_Professor._filtre();
+
         idDisciplina = '@Html.Raw(idDisciplina)';
         if (idDisciplina) {
             var url = new URL(`${APIHelper.LocalHostDisciplina}/classes/${idDisciplina}`)
@@ -109,9 +111,13 @@ async function graveCadastroDisciplina(ev) {
                 HorarioDisciplina.value = resposta.schedules;
                 Descricao.value = resposta.description;
 
-                
+                if (professores.data) {
+                    const professorSelecionado = professores.data.find(professor => professor.id == resposta.teacher_id);
+                    if (professorSelecionado) {
+                        Pesquisa_Professor.definaSelecionado(professorSelecionado);
+                    }
+                }
             }
-            debugger;
         }
     }
 

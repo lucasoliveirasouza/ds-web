@@ -3,6 +3,12 @@
         VMasker(el).maskPattern('99/99/9999');
         el.addEventListener('input', inputHandler.bind(undefined, ['99/99/9999'], 10), false);
     });
+
+    document.querySelectorAll("input[data-mask='cpf']").forEach((el) => {
+        VMasker(el).maskPattern('999.999.999-99');
+        el.addEventListener('input', inputHandler.bind(undefined, ['999.999.999-99'], 14), false);
+    });
+
     Array.from(document.querySelectorAll(".datepicker-input")).forEach(function (el) {
         let dp = new Datepicker(el, { buttonClass: 'btn', autohide: true, language: 'pt-BR' });
         el.nextElementSibling.children[0].addEventListener('click', () => dp.show());
@@ -10,7 +16,7 @@
 })
 
 class APIHelper {
-    static LocalHost = "http://localhost:5187";
+    static LocalHost = "https://localhost:7187";
     static LocalHostDisciplina = "http://localhost:8085";
     static ObjetoEmEdicao = {}
 }

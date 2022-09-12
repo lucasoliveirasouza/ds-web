@@ -21,7 +21,20 @@
         <label for="CPF" class="d-flex form-label">CPF</label>
         <div class="form-group" data="">
             <div class="input-group" data-target-input="nearest">
-                <input type="text" maxlength="11" id="CPF" name="CPF" class="form-control" value="" autocomplete="off">
+                <input data-mask="cpf" type="text" maxlength="14" id="CPF" name="CPF" class="form-control" value="" autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3">
+        <label for="DataNascimento" class="d-flex form-label">Data de nascimento</label>
+        <div class="form-group" data="">
+            <div class="input-group input-date" id="DataInicial_container" data-target-input="nearest">
+                <input type="text" maxlength="10" id="DataNascimento" name="DataNascimento" class="form-control date datepicker-input" data-target="#DataInicial_container" value="" data-mask="date" autocomplete="off">
+                <div class="input-group-append" data-target="#DataInicial_container">
+                    <button type="button" class="btn btn-outline-primary py-2 my-0 px-4 " data-bs-toggle="tooltip" tabindex="-1">
+                        <i class=" fa fa-calendar"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -42,20 +55,6 @@
 </div>
 
 <div class="row">
-    <div class="col-xl-3">
-        <label for="DataNascimento" class="d-flex form-label">Data de nascimento</label>
-        <div class="form-group" data="">
-            <div class="input-group input-date" id="DataInicial_container" data-target-input="nearest">
-                <input type="text" maxlength="10" id="DataNascimento" name="DataNascimento" class="form-control date datepicker-input" data-target="#DataInicial_container" value="" data-mask="date" autocomplete="off">
-                <div class="input-group-append" data-target="#DataInicial_container">
-                    <button type="button" class="btn btn-outline-primary py-2 my-0 px-4 " data-bs-toggle="tooltip" tabindex="-1">
-                        <i class=" fa fa-calendar"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="col-xl-3">
         <label for="Email" class="d-flex form-label">Email</label>
         <div class="form-group" data="">
@@ -137,9 +136,9 @@ async function verifiqueEdicao()
             DataNascimento.value = resposta.data.dataNascimento.convertaStrLocaleToDate().convertaDateToStrDiaMesAno();
             Email.value = resposta.data.email;
             Senha.disabled = true;
-            Matricula.disabled = true;
+
+            CPF.dispatchEvent(new Event('input'));
         }
-        debugger;
     }
 }
 

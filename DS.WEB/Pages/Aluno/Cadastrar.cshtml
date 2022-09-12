@@ -29,7 +29,7 @@
         <label for="CPF" class="d-flex form-label">CPF</label>
         <div class="form-group" data="">
             <div class="input-group" data-target-input="nearest">
-                <input type="text" maxlength="11" id="CPF" name="CPF" class="form-control" value="" autocomplete="off">
+                <input data-mask='cpf' type="text" maxlength="14" id="CPF" name="CPF" class="form-control" value="" autocomplete="off">
             </div>
         </div>
     </div>
@@ -108,7 +108,7 @@ async function graveCadastroAluno(ev) {
         data: {
             Matricula: Matricula.value,
             Nome: Nome.value,
-            Cpf: CPF.value,
+            Cpf: CPF.value.replace('.','').replace('-', ''),
             DataNascimento: DataNascimento.value.convertaStrLocaleToDate(),
             Email: Email.value,
             Senha: Senha.value,
@@ -149,6 +149,8 @@ async function verifiqueEdicao()
             Email.value = resposta.data.email;
             Senha.disabled = true;
             Matricula.disabled = true;
+
+            CPF.dispatchEvent(new Event('input'));
         }
     }
 }

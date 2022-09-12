@@ -194,11 +194,7 @@
     _obtenhaDescricaoSelecao(selecionado) {
         if (!this._options.modelName || !selecionado) return;
 
-        if (this._options.modelName === 'ProfissionalRegistradoModel') {
-            return `${selecionado.TipoDeRegistro.Descricao}: ${selecionado.Registro}-${selecionado.UF.Sigla} ${selecionado.Nome}`;
-        }
-
-        return selecionado.DescricaoPesquisa || selecionado.Descricao || selecionado.Nome;
+        return selecionado.DescricaoPesquisa || selecionado.Descricao || selecionado.Nome || selecionado.nome;
     }
 
     _dispareEventos() {
