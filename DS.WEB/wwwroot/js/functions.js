@@ -18,7 +18,6 @@
 class APIHelper {
     static LocalHost = "http://localhost:5187";
     static LocalHostDisciplina = "http://localhost:8085";
-    static ObjetoEmEdicao = {}
 }
 
 function inputHandler(masks, max, event) {
